@@ -1,15 +1,21 @@
 import Navbar from '../../components/Navbar'
 import Events from '../../components/Events'
-import { useState, useRef } from 'react'
+import useEventsData from "../../hooks/useEventsData"
+import { useState, useRef, useEffect } from 'react'
 
 const Home = () => {
 
+  const { events, isLoading, error, fetchEvents } = useEventsData()
   const[searchValue, setSearchValue] = useState('')
   const containerRef = useRef()
 
+  useEffect(() =>{
+    fetchEvents() //Carga la información la primera vez que se monta el componente
+  },[])
+
   const handleNavarSearch = (term) => {
-    console.log(containerRef.current)
     setSearchValue(term)
+    fetchEvents(`&keyword=${term}`) //Se manda con el valor de busqueda
   }
 
   return (
@@ -21,7 +27,8 @@ const Home = () => {
     */
     <>
       <Navbar onSearch={handleNavarSearch} ref={containerRef}/>
-      <Events sValue={searchValue}/>
+      {isLoading ? <div>Cargando resultados...</div> : <Events sValue={searchValue} events={events}/>}
+      {!!error && <div>{`Ha ocurrido un error:  ${error}`}</div>}
     </>
   )
 }
