@@ -2,10 +2,12 @@ import Navbar from '../../components/Navbar'
 import Events from '../../components/Events'
 import useEventsData from "../../hooks/useEventsData"
 import { useState, useRef, useEffect } from 'react'
+import ReactPaginate from 'react-paginate'
+import styles from './Home.module.css'
 
 const Home = () => {
 
-  const { events, isLoading, error, fetchEvents } = useEventsData()
+  const { events, isLoading, error, fetchEvents, page } = useEventsData()
   const[searchValue, setSearchValue] = useState('')
   const containerRef = useRef()
 
@@ -18,6 +20,40 @@ const Home = () => {
     fetchEvents(`&keyword=${term}`) //Se manda con el valor de busqueda
   }
 
+  const handlePageClick = ({selected}) => {
+    fetchEvents(`&keyword=${searchValue}&page=${selected}`)
+  }
+
+  const renderEvents = () => {
+    if(isLoading){
+      return <div>Cargando resultados...</div>
+    }
+    if(error){
+      return <div>{`Ha ocurrido un error:  ${error}`}</div>
+    }
+
+    return (
+      <>
+        <Events sValue={searchValue} events={events}/>
+        <ReactPaginate
+          className={styles.pagination}
+          nextClassName={styles.next}
+          previousClassName={styles.previous}
+          pageClassName={styles.page}
+          activeClassName={styles.activePage}
+          disabledClassName={styles.disabledPage}
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={page.totalPages}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+        />
+      </>
+    )
+  }
+
   return (
     /*
       onSearch llama la funcion handleNS y le pasa el valor que se presiono despues del enter en Navbar
@@ -27,8 +63,7 @@ const Home = () => {
     */
     <>
       <Navbar onSearch={handleNavarSearch} ref={containerRef}/>
-      {isLoading ? <div>Cargando resultados...</div> : <Events sValue={searchValue} events={events}/>}
-      {!!error && <div>{`Ha ocurrido un error:  ${error}`}</div>}
+      {renderEvents()}
     </>
   )
 }
