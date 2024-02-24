@@ -1,5 +1,14 @@
 .container{
+    
+}
 
+.home{
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 12px 0;
+    color: rgb(166, 213, 255);
 }
 
 .mainInfoContainer{

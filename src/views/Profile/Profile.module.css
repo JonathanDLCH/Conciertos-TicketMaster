@@ -1,0 +1,27 @@
+.active{
+    border-bottom: 1px solid #fff;
+}
+
+.home{
+    text-decoration: none;
+    cursor: pointer;
+    margin: 12px 0;
+    color: rgb(166, 213, 255);
+}
+
+.tabContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 12px;
+}
+
+.tab{
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 4px;
+    cursor: pointer;
+    background-color: #000;
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+}

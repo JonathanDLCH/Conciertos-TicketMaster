@@ -1,13 +1,18 @@
 import Navbar from '../../components/Navbar'
 import Events from '../../components/Events'
-import useEventsData from "../../hooks/useEventsData"
+import useEventsResult from '../../state/events-results'
 import { useState, useRef, useEffect } from 'react'
 import ReactPaginate from 'react-paginate'
 import styles from './Home.module.css'
 
 const Home = () => {
 
-  const { events, isLoading, error, fetchEvents, page } = useEventsData()
+  //con zustand
+  const { data, isLoading, error, fetchEvents } = useEventsResult()
+  const events = data?._embedded?.events || []
+  const page = data?.page || {}
+
+
   const[searchValue, setSearchValue] = useState('')
   const containerRef = useRef()
 

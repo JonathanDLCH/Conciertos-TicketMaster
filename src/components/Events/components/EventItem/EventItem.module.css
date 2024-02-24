@@ -29,3 +29,15 @@
 .btnMore{
     margin-top: 8px;
 }
+
+.imageContainer{
+    position: relative;
+}
+
+.heartImage{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+    cursor: pointer;
+}

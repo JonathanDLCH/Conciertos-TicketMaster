@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-
 
 import styles from './Detail.module.css'
 
@@ -54,6 +53,7 @@ const Detail = () => {
                 <p className={styles.priceRangeLegend}>Rango de precios: {dataDetail.priceRanges?.[0].min}-{dataDetail.priceRanges?.[0].max} {dataDetail.priceRanges?.[0].currency}</p>
             </div>
             <a href={dataDetail.url}>Ir por tus boletos</a>
+            <Link to='/' className={styles.home}>Inicio</Link>
         </div>
     )
 }
