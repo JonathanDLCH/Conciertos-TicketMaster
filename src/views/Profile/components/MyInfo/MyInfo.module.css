@@ -1,0 +1,25 @@
+.form{
+    display: flex;
+    flex-direction: column;
+}
+
+.label{
+    font-size: 16px;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input{
+    font-size: 16px;
+    padding: 4px;
+    margin: 4px;
+}
+
+.btnContainer{
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
