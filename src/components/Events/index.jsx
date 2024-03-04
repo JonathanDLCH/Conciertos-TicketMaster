@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import EventItem from "./components/EventItem"
+import { memo } from "react"
 
 const Events = ({sValue, events}) =>{
 
@@ -35,4 +36,4 @@ const Events = ({sValue, events}) =>{
     )
 }
 
-export default Events
+export default memo(Events)

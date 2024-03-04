@@ -1,7 +1,7 @@
 import Navbar from '../../components/Navbar'
 import Events from '../../components/Events'
 import useEventsResult from '../../state/events-results'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import ReactPaginate from 'react-paginate'
 import styles from './Home.module.css'
 
@@ -9,8 +9,8 @@ const Home = () => {
 
   //con zustand
   const { data, isLoading, error, fetchEvents } = useEventsResult()
-  const events = data?._embedded?.events || []
-  const page = data?.page || {}
+  const events = useMemo(() => data?._embedded?.events || [],[data?._embedded?.events])
+  const page = useMemo(() => data?.page || {},[data?.page])
 
 
   const[searchValue, setSearchValue] = useState('')
@@ -25,9 +25,9 @@ const Home = () => {
     fetchEvents(`&keyword=${term}`) //Se manda con el valor de busqueda
   }
 
-  const handlePageClick = ({selected}) => {
+  const handlePageClick = useCallback(({selected}) => {
     fetchEvents(`&keyword=${searchValue}&page=${selected}`)
-  }
+  },[searchValue,fetchEvents])
 
   const renderEvents = () => {
     if(isLoading){
